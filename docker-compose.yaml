@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  fastapi:
+    build: .
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./xgb_carshare_model.pkl:/app/xgb_carshare_model.pkl
+
+  streamlit:
+    build: .
+    command: streamlit run streamit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+    ports:
+      - "8501:8501"
+    environment:
+      - FASTAPI_URL=http://fastapi:8000
+    depends_on:
+      - fastapi

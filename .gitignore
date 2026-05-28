@@ -1,0 +1,10 @@
+target/
+bin/
+lib/
+*.jar
+node_modules/
+*.class
+classes
+*.doc
+.exe
+dist/
